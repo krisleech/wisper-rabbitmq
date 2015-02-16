@@ -1,7 +1,7 @@
 require "wisper/rabbitmq/version"
+require "wisper/rabbitmq/relay"
 
 module Wisper
-  module Rabbitmq
-    # Your code goes here...
+  module RabbitMQ
   end
 end

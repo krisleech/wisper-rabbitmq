@@ -1,31 +1,62 @@
-# Wisper::Rabbitmq
+# Wisper::RabbitMQ [WIP]
 
-TODO: Write a gem description
+Relay Wisper events to RabbitMQ.
 
 ## Installation
-
-Add this line to your application's Gemfile:
 
 ```ruby
 gem 'wisper-rabbitmq'
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install wisper-rabbitmq
-
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+Wisper::RabbitMQ.enable
+```
+
+The above will forward all events to RabbitMQ with the following defaults:
+
+* Host: `amqp://guest:guest@localhost:5672`
+* VirtualHost: `/`
+* Exchange: `fanout`
+* Queue: `wisper`
+
+## Configuration
+
+```ruby
+Wisper::RabbitMQ.configure do |config|
+  config.host = '...'
+  # or
+  config.connection = my_connection
+end
+```
+
+`my_connection` must be a [Bunny]() compatible client. This is useful on JRuby
+as it allows use of the more performant [Hare]() library.
+
+And the other, optional, configurables:
+
+```ruby
+config.virtual_host = 'myapp'
+config.queue = 'default'
+```
+
+The value for each configurable can also be a callable object, e.g.
+
+```ruby
+config.virtual_host = ->(event) { ... }
+```
+
+### Whitelisting
+
+You can filter which events are relayed to RabbitMQ using a callable object:
+
+```ruby
+Wisper::RabbitMQ.configure do |config|
+  config.relay_events = ->(event_name) { %w(:thing_created).include?(event_name) }
+end
+```
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/wisper-rabbitmq/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+Yes, please.

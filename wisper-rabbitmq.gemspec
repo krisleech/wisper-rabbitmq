@@ -5,7 +5,7 @@ require 'wisper/rabbitmq/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "wisper-rabbitmq"
-  spec.version       = Wisper::Rabbitmq::VERSION
+  spec.version       = Wisper::RabbitMQ::VERSION
   spec.authors       = ["Kris Leech"]
   spec.email         = ["kris.leech@gmail.com"]
   spec.summary       = %q{TODO: Write a short summary. Required.}
@@ -18,6 +18,6 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.7"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_dependency 'wisper'
+  spec.add_dependency 'bunny'
 end
